@@ -1,26 +1,118 @@
-// Ionic Starter App
+// Ionic wpIonic App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// 'wpIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+// 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
+angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs).
-    // The reason we default this to hidden is that native apps don't usually show an accessory bar, at
-    // least on iOS. It's a dead giveaway that an app is using a Web View. However, it's sometimes
-    // useful especially with forms, though we would prefer giving the user a little more room
-    // to interact with the app.
+    // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
-      // Set the statusbar to use the default style, tweak this to
-      // remove the status bar on iOS or change it to use white instead of dark colors.
+      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
+})
+
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, CacheFactoryProvider) {
+
+  angular.extend(CacheFactoryProvider.defaults, { 
+    'storageMode': 'localStorage',
+    'capacity': 10,
+    'maxAge': 10800000,
+    'deleteOnExpire': 'aggressive',
+    'recycleFreq': 10000
+  })
+
+  // Native scrolling
+  if( ionic.Platform.isAndroid() ) {
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+  }
+
+  $stateProvider
+
+  // sets up our default state, all views are loaded through here
+  .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('app.intro', {
+    url: "/intro",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/intro.html",
+        controller: 'IntroCtrl'
+      }
+    }
+  })
+
+  // this is the first sub view, notice menuContent under 'views', which is loaded through menu.html
+  .state('app.jokes', {
+    url: "/jokes",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/jokes.html",
+        controller: 'JokesCtrl'
+      }
+    }
+  })
+
+  .state('app.bookmarks', {
+    url: "/bookmarks",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/bookmarks.html",
+        controller: 'BookmarksCtrl'
+      }
+    }
+  })
+
+  .state('app.post', {
+    url: "/posts/:postId",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/post.html",
+        controller: 'PostCtrl'
+      }
+    }
+  })
+
+  .state('app.custom', {
+    url: "/custom",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/custom.html"
+      }
+    }
+  })
+
+  .state('app.tabs', {
+    url: "/tabs",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/tabs.html",
+        controller: 'TabsCtrl'
+      }
+    }
+  })
+
+  .state('app.settings', {
+      url: "/settings",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/settings.html"
+        }
+      }
+    });
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/intro');
 });
