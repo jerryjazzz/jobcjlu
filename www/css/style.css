@@ -109,7 +109,7 @@
   text-decoration: underline;
 }
 
-.jokes .item-content {
+.jokes .item-content, .jokes .item{
   padding-right: 16px;
   text-overflow: visible;
   white-space: normal;

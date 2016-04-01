@@ -121,6 +121,7 @@ angular.module('wpIonic.controllers', [])
           }, 500);
         };
         $scope.loadPage = 1;
+        //TODO
         $scope.loadJokes();
         $scope.loadMore = function () {
           $scope.loadPage++;

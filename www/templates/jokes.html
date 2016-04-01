@@ -2,7 +2,7 @@
 <ion-content class="jokes">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
-		<ion-item class="joke" ng-repeat="joke in jokes" href="##">
+		<ion-item class="joke" ng-repeat="joke in jokes" >
 			{{joke.content}}
 		</ion-item>
 	</ion-list>
