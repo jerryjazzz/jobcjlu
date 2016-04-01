@@ -76,15 +76,15 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  .state('app.post', {
-    url: "/posts/:postId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/post.html",
-        controller: 'PostCtrl'
-      }
-    }
-  })
+  // .state('app.post', {
+  //   url: "/posts/:postId",
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: "templates/post.html",
+  //       controller: 'PostCtrl'
+  //     }
+  //   }
+  // })
 
   .state('app.custom', {
     url: "/custom",
