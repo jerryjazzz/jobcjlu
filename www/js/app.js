@@ -34,7 +34,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   if( ionic.Platform.isAndroid() ) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
-$ionicConfigProvider.platform.ios.tabs.style('standard'); 
+  $ionicConfigProvider.platform.ios.tabs.style('standard'); 
   $ionicConfigProvider.platform.ios.tabs.position('bottom');
   $ionicConfigProvider.platform.android.tabs.style('standard');
   $ionicConfigProvider.platform.android.tabs.position('bottom');
