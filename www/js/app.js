@@ -34,6 +34,10 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   if( ionic.Platform.isAndroid() ) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
+$ionicConfigProvider.platform.ios.tabs.style('standard'); 
+  $ionicConfigProvider.platform.ios.tabs.position('bottom');
+  $ionicConfigProvider.platform.android.tabs.style('standard');
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
 
   $stateProvider
 
@@ -66,12 +70,12 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  .state('app.bookmarks', {
-    url: "/bookmarks",
+  .state('app.myStar', {
+    url: "/myStar",
     views: {
       'menuContent': {
-        templateUrl: "templates/bookmarks.html",
-        controller: 'BookmarksCtrl'
+        templateUrl: "templates/myStar.html",
+        controller: 'myStarCtrl'
       }
     }
   })

@@ -114,3 +114,8 @@
   text-overflow: visible;
   white-space: normal;
 }
+
+.jobs .has-tabs.pane { top: 40px;}
+.author .title {font-size: 24px;}
+.author p { font-size: 22px; line-height: 28px; }
+.author a { font-size: 22px; text-decoration: none;}

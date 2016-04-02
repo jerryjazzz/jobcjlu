@@ -11,85 +11,85 @@ angular.module('wpIonic.controllers', [])
 
 .controller('PostCtrl', function($scope, $stateParams, DataLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
 
-  if ( ! CacheFactory.get('postCache') ) {
-    CacheFactory.createCache('postCache');
-  }
+  // if ( ! CacheFactory.get('postCache') ) {
+  //   CacheFactory.createCache('postCache');
+  // }
 
-  var postCache = CacheFactory.get( 'postCache' );
+  // var postCache = CacheFactory.get( 'postCache' );
 
-  $scope.itemID = $stateParams.postId;
+  // $scope.itemID = $stateParams.postId;
 
-  var singlePostApi = $rootScope.url + 'posts/' + $scope.itemID;
+  // var singlePostApi = $rootScope.url + 'posts/' + $scope.itemID;
 
-  $scope.loadPost = function() {
+  // $scope.loadPost = function() {
 
-    // Fetch remote post
+  //   // Fetch remote post
 
-    $ionicLoading.show({
-      noBackdrop: true
-    });
+  //   $ionicLoading.show({
+  //     noBackdrop: true
+  //   });
 
-    DataLoader.get( singlePostApi ).then(function(response) {
+  //   DataLoader.get( singlePostApi ).then(function(response) {
 
-      $scope.post = response.data;
+  //     $scope.post = response.data;
 
-      $log.debug($scope.post);
+  //     $log.debug($scope.post);
 
-      // Don't strip post html
-      $scope.content = $sce.trustAsHtml(response.data.content.rendered);
+  //     // Don't strip post html
+  //     $scope.content = $sce.trustAsHtml(response.data.content.rendered);
 
-      // $scope.comments = $scope.post._embedded['replies'][0];
+  //     // $scope.comments = $scope.post._embedded['replies'][0];
 
-      // add post to our cache
-      postCache.put( response.data.id, response.data );
+  //     // add post to our cache
+  //     postCache.put( response.data.id, response.data );
 
-      $ionicLoading.hide();
-    }, function(response) {
-      $log.error('error', response);
-      $ionicLoading.hide();
-    });
+  //     $ionicLoading.hide();
+  //   }, function(response) {
+  //     $log.error('error', response);
+  //     $ionicLoading.hide();
+  //   });
 
-  }
+  // }
 
-  if( !postCache.get( $scope.itemID ) ) {
+  // if( !postCache.get( $scope.itemID ) ) {
 
-    // Item is not in cache, go get it
-    $scope.loadPost();
+  //   // Item is not in cache, go get it
+  //   $scope.loadPost();
 
-  } else {
-    // Item exists, use cached item
-    $scope.post = postCache.get( $scope.itemID );
-    $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
-    // $scope.comments = $scope.post._embedded['replies'][0];
-  }
+  // } else {
+  //   // Item exists, use cached item
+  //   $scope.post = postCache.get( $scope.itemID );
+  //   $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
+  //   // $scope.comments = $scope.post._embedded['replies'][0];
+  // }
 
-  // Bookmarking
-  $scope.bookmarked = Bookmark.check( $scope.itemID );
+  // // Bookmarking
+  // $scope.bookmarked = Bookmark.check( $scope.itemID );
 
-  $scope.bookmarkItem = function( id ) {
+  // $scope.bookmarkItem = function( id ) {
     
-    if( $scope.bookmarked ) {
-      Bookmark.remove( id );
-      $scope.bookmarked = false;
-    } else {
-      Bookmark.set( id );
-      $scope.bookmarked = true;
-    }
-  }
+  //   if( $scope.bookmarked ) {
+  //     Bookmark.remove( id );
+  //     $scope.bookmarked = false;
+  //   } else {
+  //     Bookmark.set( id );
+  //     $scope.bookmarked = true;
+  //   }
+  // }
 
-  // Pull to refresh
-  $scope.doRefresh = function() {
+  // // Pull to refresh
+  // $scope.doRefresh = function() {
   
-    $timeout( function() {
+  //   $timeout( function() {
 
-      $scope.loadPost();
+  //     $scope.loadPost();
 
-      //Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
+  //     //Stop the ion-refresher from spinning
+  //     $scope.$broadcast('scroll.refreshComplete');
     
-    }, 1000);
+  //   }, 1000);
       
-  };
+  // };
 
 })
 .controller('JokesCtrl',function ( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
@@ -219,45 +219,54 @@ angular.module('wpIonic.controllers', [])
 })
 */
 
-.controller('BookmarksCtrl', function( $scope, $http, DataLoader, $timeout, $rootScope, $log, Bookmark, CacheFactory ) {
+.controller('myStarCtrl', function( $scope, $http, DataLoader, $timeout, $rootScope, $log, Bookmark, CacheFactory ) {
 
-  $scope.$on('$ionicView.enter', function(e) {
+  // $scope.$on('$ionicView.enter', function(e) {
 
-    if ( ! CacheFactory.get('postCache') ) {
-      CacheFactory.createCache('postCache');
-    }
+  //   if ( ! CacheFactory.get('postCache') ) {
+  //     CacheFactory.createCache('postCache');
+  //   }
 
-    var postCache = CacheFactory.get( 'postCache' );
+  //   var postCache = CacheFactory.get( 'postCache' );
 
-    if ( ! CacheFactory.get('bookmarkCache') ) {
-      CacheFactory.createCache('bookmarkCache');
-    }
+  //   if ( ! CacheFactory.get('bookmarkCache') ) {
+  //     CacheFactory.createCache('bookmarkCache');
+  //   }
 
-    var bookmarkCacheKeys = CacheFactory.get( 'bookmarkCache' ).keys();
+  //   var bookmarkCacheKeys = CacheFactory.get( 'bookmarkCache' ).keys();
 
-    $scope.posts = [];
+  //   $scope.posts = [];
   
-    angular.forEach( bookmarkCacheKeys, function( value, key ) {
-      var newPost = postCache.get( value );
-      $scope.posts.push( newPost );
-    });
+  //   angular.forEach( bookmarkCacheKeys, function( value, key ) {
+  //     var newPost = postCache.get( value );
+  //     $scope.posts.push( newPost );
+  //   });
 
-  });
+  // });
     
 })
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicHistory) {
+.controller('IntroCtrl', function($scope, $state, $localstorage,$ionicSlideBoxDelegate, $ionicHistory,$log) {
 
   // $ionicSlideBoxDelegate.update();
-
+  
   $ionicHistory.nextViewOptions({
     disableBack: true
   });
- 
+  $scope.saveIsStartApp = function () {
+
+  }
   // Called to navigate to the main app
   $scope.startApp = function() {
+    $scope.isStartApp = true;
+    $localstorage.isStartApp = $scope.isStartApp;
     $state.go('app.jokes');
   };
+  if ($localstorage.isStartApp) {
+    $log.log(startApp);
+    $state.go('app.jokes');
+    
+  }
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
   };
