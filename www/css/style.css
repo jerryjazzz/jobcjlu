@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-
+body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 .item-content p.post-excerpt {
 	white-space: wrap;
 }
@@ -114,8 +114,13 @@
   text-overflow: visible;
   white-space: normal;
 }
-
+.jobs p {margin: 0; padding: 0; }
+.jobs .item { padding-top: 10px; padding-bottom: 8px;}
+.jobs .job-title {padding: 0; margin: 0; color: #00a89e; font-size: 16px; line-height: 32px; font-weight: bold;}
+.jobs .job-time { color: #bbb; line-height: 24px;}
 .jobs .has-tabs.pane { top: 40px;}
+.jobs
+
 .author .title {font-size: 24px;}
 .author p { font-size: 22px; line-height: 28px; }
 .author a { font-size: 22px; text-decoration: none;}

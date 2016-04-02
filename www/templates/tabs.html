@@ -1,10 +1,18 @@
 <ion-view class="jobs" title="职位信息">
 
 	<ion-tabs tabs-type="tabs-icon-only">
-	    <ion-tab title="Home" icon-on="ion-ios-home" icon-off="ion-ios-home-outline">
-	        <ion-content has-header="true" padding="true">
-	            <h2>职位如下，加油少年！</h2>
-	            <p>some information for jobs</p>
+	    <ion-tab title="校园招聘" icon-on="ion-ios-home" icon-off="ion-ios-home-outline">
+	        <ion-content has-header="true">
+	            <ion-list>
+	            		<ion-item class="item-icon-right" ng-repeat="progress in progressArr">
+	            			<p class="job-title">{{progress.title}}</p>
+	            			<p>{{progress.location}}</p>
+	            			<p class="job-time">网申时间：{{progress.time}}</p>
+
+				
+	            		</ion-item>
+	            </ion-list>
+	            <ion-infinite-scroll ng-if="moreDataExists()" on-infinite="loadMore()" immediate-check="false"></ion-infinite-scroll>
 	        </ion-content>
 	    </ion-tab>
 

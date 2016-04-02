@@ -128,7 +128,7 @@ angular.module('wpIonic.controllers', [])
           $scope.loadJokes();
           $timeout(function() {
             $scope.$broadcast('scroll.infiniteScrollComplete');
-          }, 500);
+          }, 1000);
         };
         $scope.moreDataExists = function () {
           return $scope.morejokes;
@@ -253,20 +253,14 @@ angular.module('wpIonic.controllers', [])
   $ionicHistory.nextViewOptions({
     disableBack: true
   });
-  $scope.saveIsStartApp = function () {
-
-  }
   // Called to navigate to the main app
   $scope.startApp = function() {
-    $scope.isStartApp = true;
-    $localstorage.isStartApp = $scope.isStartApp;
+    $localstorage.set('hasStartApp',true);
     $state.go('app.jokes');
   };
-  if ($localstorage.isStartApp) {
-    $log.log(startApp);
-    $state.go('app.jokes');
-    
-  }
+
+  if (false) { $state.go('app.jokes'); }
+
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
   };
@@ -281,8 +275,41 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('TabsCtrl', function($scope) {
+.controller('TabsCtrl', function($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+  $scope.page = 1;
+  $scope.moreItems = false;
+  $scope.GetApi = function () {
+    return 'http://m.dajie.com/progress/list?page='+$scope.page;
+  };
+  $scope.getData = function () {
+    DataLoader.get($scope.GetApi()).then(function (response) {
 
-  // Tabs stuff here
+        if ($scope.progressArr == null) {
+          $scope.progressArr = response.data.data.list;
+        } else {
+          $scope.progressArr = $scope.progressArr.concat(response.data.data.list);
+        }
+        $scope.$broadcast('scroll.resize');
+        $scope.moreItems = true;
+        $log.log($scope.GetApi(),response);
+        $scope.page++;
+      },function (response) {
+        $log.log($scope.GetApi(),response);
+    });
+  };
+  $scope.getData();
+  
 
+  $scope.moreDataExists = function () {
+    return $scope.moreItems;
+  };
+  $scope.loadMore = function () {
+    $scope.getData();
+    $timeout(function() {
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }, 1000);
+  }
+
+
+  
 });
