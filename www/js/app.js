@@ -123,6 +123,16 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
+  .state('app.campusDetail', {
+    url: "/campusDetail/:url",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/campusDetail.html",
+        controller: 'campusDetailCtrl'
+      }
+    }
+  })
+
   .state('app.settings', {
       url: "/settings",
       views: {

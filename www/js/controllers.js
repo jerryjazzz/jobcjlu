@@ -289,7 +289,7 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('campusCtrl', function ($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+.controller('campusCtrl', function ($scope,$state,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
   $scope.page = 1;
   $scope.moreItems = false;
   $scope.GetApi = function () {
@@ -344,7 +344,25 @@ angular.module('wpIonic.controllers', [])
     $scope.getData();
     
   }
+  $scope.detailRootUrl = 'http://m.dajie.com';
+  $scope.moreDetail = function (url) {
+    $scope.detailUrl = $scope.detailRootUrl + url;
+    $state.go('app.campusDetail',{'url' : $scope.detailUrl});
+  }
+})
+.controller('campusDetailCtrl', function ($scope,$state,$stateParams,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+    var url = $stateParams.url;
+    $scope.htmlStr = {
+      str : ''
+    }
+    DataLoader.get( url ).then(function (response) {
+      $scope.htmlStr.str=response.data;
+      $log.log(url,response.data);
+    },function (response) {
+      $log.log(url,response.data);
+    });
 
 
-  
+
+
 });

@@ -110,14 +110,13 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   text-decoration: underline;
 }
 **/
-.title { text-align: center;}
 .jokes .item-content, .jokes .item{
   padding-right: 16px;
   text-overflow: visible;
   white-space: normal;
 }
 .campus p {margin: 0; padding: 0; }
-.campus .item-content { padding-top: 10px; padding-bottom: 8px;}
+.campus .item { padding-top: 10px; padding-bottom: 8px;}
 .campus .job-title {padding: 0; margin: 0; color: #00a89e; font-size: 16px; line-height: 32px; font-weight: bold;}
 .campus .job-time { color: #bbb; line-height: 24px;}
 .campus .has-tabs { padding-top: 44px;}
