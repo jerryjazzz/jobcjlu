@@ -13,6 +13,11 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+    
+    if(navigator && navigator.splashscreen) {
+            navigator.splashscreen.hide();
+    }
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -70,6 +75,15 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
+  .state('app.talk', {
+    url: "/talk",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/talk.html",
+        controller: 'talkCtrl'
+      }
+    }
+  })
   .state('app.myStar', {
     url: "/myStar",
     views: {
@@ -99,12 +113,12 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  .state('app.tabs', {
-    url: "/tabs",
+  .state('app.campus', {
+    url: "/campus",
     views: {
       'menuContent': {
-        templateUrl: "templates/tabs.html",
-        controller: 'TabsCtrl'
+        templateUrl: "templates/campus.html",
+        controller: 'campusCtrl'
       }
     }
   })

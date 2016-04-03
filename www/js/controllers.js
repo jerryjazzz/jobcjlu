@@ -115,10 +115,18 @@ angular.module('wpIonic.controllers', [])
     });
   };
         $scope.doRefresh = function () {
-          $scope.loadJokes();
-          $timeout(function() {
+          $scope.loadPage = 1;
+          DataLoader.get($scope.getApi()).then(function (response) {
+          $scope.jokes = response.data.result.data;
+          $log.log($scope.getApi(),response);
+          $scope.loadPage++;
+         },function (response) {
+          $log.log($scope.GetApi(),response);
+         });
+          $scope.$broadcast('scroll.resize');
+          $timeout(function () {
             $scope.$broadcast('scroll.refreshComplete');
-          }, 500);
+          },500);
         };
         $scope.loadPage = 1;
         //TODO
@@ -274,8 +282,14 @@ angular.module('wpIonic.controllers', [])
   };
 
 })
+.controller('talkCtrl',function ($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
 
-.controller('TabsCtrl', function($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+
+
+
+})
+
+.controller('campusCtrl', function ($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
   $scope.page = 1;
   $scope.moreItems = false;
   $scope.GetApi = function () {
@@ -309,7 +323,18 @@ angular.module('wpIonic.controllers', [])
   };
   $scope.getData();
   $scope.doRefresh = function () {
-    $log.log(doRefresh);
+    $scope.page = 1;
+    DataLoader.get($scope.GetApi()).then(function (response) {
+      $scope.progressArr = response.data.data.list;
+        $log.log($scope.GetApi(),response);
+        $scope.page++;
+    },function (response) {
+        $log.log($scope.GetApi(),response);
+    });
+    $scope.$broadcast('scroll.resize');
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    },500);
   };
 
   $scope.moreDataExists = function () {
