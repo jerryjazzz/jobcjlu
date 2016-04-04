@@ -110,6 +110,10 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   text-decoration: underline;
 }
 **/
+/*解决关于标题不能居中bug*/
+.title.title-left.header-item { text-align: center; margin-right: 60px;}
+
+
 .jokes .item-content, .jokes .item{
   padding-right: 16px;
   text-overflow: visible;
@@ -123,3 +127,10 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 .author .title {font-size: 24px;}
 .author p { font-size: 22px; line-height: 28px; }
 .author a { font-size: 22px; text-decoration: none;}
+.campusDetail * { margin: 0; padding: 0;}
+.campusDetail .wrap { padding: 0 10px 22px 10px; margin: 10px; border-radius:4px; background: #fff;}
+.campusDetail { padding-top: 44px; background: #ddd;}
+.campusDetail .con-txt { line-height: 29px; font-size: 14px; color: #717171; padding-bottom: 15px;}
+.campusDetail h4 {line-height: 25px; font-size: 19px; font-weight: bold; padding: 10px 80px 0 0; text-align: center;}
+.art-title { font-size: 16px; line-height: 20px; padding: 22px 0; color: #666;border-top:1px solid #eee;}
+.desc {font-size: 12px; line-height: 18px; color: #999; margin: 7px 80px 11px 0; }

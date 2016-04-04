@@ -9,6 +9,11 @@ angular.module('wpIonic.services', [])
     get: function(url) {
       // Simple index lookup
       return $http.get( url );
+    },
+
+    /*招聘详情中数据处理*/
+    subHtmlStr : function (str) {
+      return str.substring(str.indexOf('<h4'),str.lastIndexOf('<form'));
     }
   }
 

@@ -352,17 +352,12 @@ angular.module('wpIonic.controllers', [])
 })
 .controller('campusDetailCtrl', function ($scope,$state,$stateParams,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
     var url = $stateParams.url;
-    $scope.htmlStr = {
-      str : ''
-    }
+    $scope.htmlStr = "";
     DataLoader.get( url ).then(function (response) {
-      $scope.htmlStr.str=response.data;
+      $scope.htmlStr = DataLoader.subHtmlStr(response.data);
       $log.log(url,response.data);
     },function (response) {
       $log.log(url,response.data);
     });
-
-
-
 
 });
