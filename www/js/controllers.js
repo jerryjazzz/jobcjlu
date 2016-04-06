@@ -92,7 +92,7 @@ angular.module('wpIonic.controllers', [])
   // };
 
 })
-.controller('JokesCtrl',function ( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
+.controller('JokesCtrl',function ( $scope, $http, $ionicLoading,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
   $scope.morejokes = true;
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
@@ -107,12 +107,21 @@ angular.module('wpIonic.controllers', [])
         $scope.jokes = $scope.jokes.concat(response.data.result.data);
         $log.log($scope.jokes.length);
        }
-      $scope.$broadcast('scroll.resize');
-      $log.log($scope.getApi(), response);
+      $timeout(function () {
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.resize');
+        $log.log($scope.getApi(), response);
+      },500);
     },function(response) {
       $log.log($scope.getApi(), response);
       $scope.morejokes = false;
+      $timeout(function () {
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.resize');
+        $log.log($scope.getApi(), response);
+      },500);
     });
+      
   };
         $scope.doRefresh = function () {
           $scope.loadPage = 1;
@@ -130,7 +139,15 @@ angular.module('wpIonic.controllers', [])
         };
         $scope.loadPage = 1;
         //TODO
+        $ionicLoading.show({
+              content: 'Loading',
+              animation: 'fade-in',
+              showBackdrop: true,
+              maxWidth: 200,
+              showDelay: 0
+        });
         $scope.loadJokes();
+
         $scope.loadMore = function () {
           $scope.loadPage++;
           $scope.loadJokes();
@@ -289,7 +306,7 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('campusCtrl', function ($scope,$state,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+.controller('campusCtrl', function ($scope,$state,$ionicLoading,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
   $scope.page = 1;
   $scope.moreItems = false;
   $scope.GetApi = function () {
@@ -312,16 +329,29 @@ angular.module('wpIonic.controllers', [])
         $log.log($scope.GetApi(),response);
         $scope.page++;
         $timeout(function() {
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    }, 1000);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $ionicLoading.hide();
+         }, 500);
+
       },function (response) {
         $log.log($scope.GetApi(),response);
         $timeout(function() {
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    }, 1000);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $ionicLoading.hide();
+         }, 500);
     });
+
+    
   };
+
   $scope.getData();
+  $ionicLoading.show({
+              content: 'Loading',
+              animation: 'fade-in',
+              showBackdrop: true,
+              maxWidth: 200,
+              showDelay: 0
+        });
   $scope.doRefresh = function () {
     $scope.page = 1;
     DataLoader.get($scope.GetApi()).then(function (response) {
@@ -350,14 +380,27 @@ angular.module('wpIonic.controllers', [])
     $state.go('app.campusDetail',{'url' : $scope.detailUrl});
   }
 })
-.controller('campusDetailCtrl', function ($scope,$state,$stateParams,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+.controller('campusDetailCtrl', function ($scope,$ionicLoading,$timeout,$state,$stateParams,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
     var url = $stateParams.url;
     $scope.htmlStr = "";
+    $ionicLoading.show({
+              content: 'Loading',
+              animation: 'fade-in',
+              showBackdrop: true,
+              maxWidth: 200,
+              showDelay: 0
+        });
     DataLoader.get( url ).then(function (response) {
       $scope.htmlStr = DataLoader.subHtmlStr(response.data);
       $log.log(url,response.data);
+      $timeout(function () {
+        $ionicLoading.hide();
+    },1200);
     },function (response) {
       $log.log(url,response.data);
+      $timeout(function () {
+        $ionicLoading.hide();
+    },1200);
     });
 
 });
