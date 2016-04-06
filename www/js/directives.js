@@ -1,6 +1,6 @@
 angular.module('wpIonic.directives',[])
 
-.directive('myDetail',function ($ionicScrollDelegate,$ionicLoading) {
+.directive('myDetail',function ($timeout,$ionicScrollDelegate,$ionicLoading) {
 	return {
 		scope : false,
 		restrict : 'EAC',

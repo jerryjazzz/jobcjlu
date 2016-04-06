@@ -92,14 +92,21 @@ angular.module('wpIonic.controllers', [])
   // };
 
 })
-.controller('JokesCtrl',function ( $scope, $http, $ionicLoading,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
+.controller('JokesCtrl',function ( $scope, $http, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
   $scope.morejokes = true;
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
 
   $scope.starJoke = function (joke) {
-    $log.log(joke);
+    // 用于重置缓存
+    // $localstorage.setObject('myStars',[]); 
+
+    var starJokes = $localstorage.getObject('myStars',[]);
+    if(starJokes.length == 0) { starJokes = [joke] }
+    else { starJokes.push(joke);}
+    $localstorage.setObject('myStars',starJokes);
+    $log.log($localstorage.getObject('myStars',[]));
   };
 
   $scope.loadJokes = function () {
@@ -249,31 +256,19 @@ angular.module('wpIonic.controllers', [])
 })
 */
 
-.controller('myStarCtrl', function( $scope, $http, DataLoader, $timeout, $rootScope, $log, Bookmark, CacheFactory ) {
+.controller('myStarCtrl', function( $scope, $timeout,$localstorage ,$log, CacheFactory ) {
+  // TODO
+  // $scope.starJokes = [];
+  // $scope.doRefresh = function () {
+  //  $scope.starJokes = $localstorage.getObject('myStars',[]);
+  // };
+  // $scope.doRefresh();
+  // $scope.delJoke = function (joke) {
+  //   $scope.starJokes.remove(joke);
+  //   $localstorage.setObject('myStars',$scope.starJokes);
+  // };
 
-  // $scope.$on('$ionicView.enter', function(e) {
 
-  //   if ( ! CacheFactory.get('postCache') ) {
-  //     CacheFactory.createCache('postCache');
-  //   }
-
-  //   var postCache = CacheFactory.get( 'postCache' );
-
-  //   if ( ! CacheFactory.get('bookmarkCache') ) {
-  //     CacheFactory.createCache('bookmarkCache');
-  //   }
-
-  //   var bookmarkCacheKeys = CacheFactory.get( 'bookmarkCache' ).keys();
-
-  //   $scope.posts = [];
-  
-  //   angular.forEach( bookmarkCacheKeys, function( value, key ) {
-  //     var newPost = postCache.get( value );
-  //     $scope.posts.push( newPost );
-  //   });
-
-  // });
-    
 })
 
 .controller('IntroCtrl', function($scope, $state, $localstorage,$ionicSlideBoxDelegate, $ionicHistory,$log) {
