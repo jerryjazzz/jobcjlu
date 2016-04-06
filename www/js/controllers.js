@@ -97,6 +97,11 @@ angular.module('wpIonic.controllers', [])
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
+
+  $scope.starJoke = function (joke) {
+    $log.log(joke);
+  };
+
   $scope.loadJokes = function () {
       if (!$scope.morejokes) {return;};
       DataLoader.get( $scope.getApi() ).then(function(response) {
@@ -280,11 +285,11 @@ angular.module('wpIonic.controllers', [])
   });
   // Called to navigate to the main app
   $scope.startApp = function() {
-    $localstorage.set('hasStartApp',true);
+    var hasStartApp = false;
+    $localstorage.set('hasStartApp',hasStartApp);
     $state.go('app.jokes');
   };
-
-  if (false) { $state.go('app.jokes'); }
+  if ($localstorage.get('hasStartApp',false)) { $state.go('app.jokes'); }
 
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();

@@ -3,7 +3,7 @@
 	<div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out"></div></div>
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
-		<ion-item class="joke" ng-repeat="joke in jokes" >
+		<ion-item on-hold="starJoke(joke)" class="joke" ng-repeat="joke in jokes" >
 			{{joke.content}}
 		</ion-item>
 	</ion-list>

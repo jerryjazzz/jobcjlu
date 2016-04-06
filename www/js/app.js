@@ -125,6 +125,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   })
 
   .state('app.campusDetail', {
+    cache: false,
     url: "/campusDetail/:url",
     views: {
       'menuContent': {
