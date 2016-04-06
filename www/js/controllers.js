@@ -285,7 +285,7 @@ angular.module('wpIonic.controllers', [])
   });
   // Called to navigate to the main app
   $scope.startApp = function() {
-    var hasStartApp = false;
+    var hasStartApp = true;
     $localstorage.set('hasStartApp',hasStartApp);
     $state.go('app.jokes');
   };
