@@ -44,6 +44,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   $ionicConfigProvider.platform.android.tabs.style('standard');
   $ionicConfigProvider.platform.android.tabs.position('bottom');
   $ionicConfigProvider.backButton.text('返回');
+  $ionicConfigProvider.platform.android.navBar.alignTitle('center');
   $stateProvider
 
   // sets up our default state, all views are loaded through here

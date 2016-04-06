@@ -110,8 +110,8 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   text-decoration: underline;
 }
 **/
-/*解决关于标题不能居中bug*/
-.title.title-left.header-item { text-align: center; margin-right: 60px;}
+/*解决关于标题不能居中bug
+.title.title-left.header-item { text-align: center; margin-right: 60px;}*/
 
 
 .jokes .item-content, .jokes .item{
