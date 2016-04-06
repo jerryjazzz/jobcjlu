@@ -398,14 +398,22 @@ angular.module('wpIonic.controllers', [])
     DataLoader.get( url ).then(function (response) {
       $scope.htmlStr = DataLoader.subHtmlStr(response.data);
       $log.log(url,response.data);
-      $timeout(function () {
-        $ionicLoading.hide();
-    },1200);
+    //   $timeout(function () {
+    //     $ionicLoading.hide();
+    // },1200);
     },function (response) {
-      $log.log(url,response.data);
-      $timeout(function () {
-        $ionicLoading.hide();
-    },1200);
+    //   $log.log(url,response.data);
+    //   $timeout(function () {
+    //     $ionicLoading.hide();
+    // },1200);
     });
 
+})
+.controller('customCtrl', function ($scope) {
+  $scope.openGithub = function () {
+    window.open('https://github.com/SuuQi','_system');
+  };
+  $scope.openGithubApp = function () {
+    window.open('https://github.com/SuuQi/jobcjlu','_system');
+  };
 });

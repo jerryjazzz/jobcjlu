@@ -6,7 +6,7 @@
 // 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
 angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'wpIonic.directives','ngCordova', 'angular-cache'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -109,7 +109,8 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     url: "/custom",
     views: {
       'menuContent': {
-        templateUrl: "templates/custom.html"
+        templateUrl: "templates/custom.html",
+        controller: 'customCtrl'
       }
     }
   })

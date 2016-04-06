@@ -1,6 +1,6 @@
 angular.module('wpIonic.directives',[])
 
-.directive('myDetail',function ($timeout,$ionicScrollDelegate) {
+.directive('myDetail',function ($ionicScrollDelegate,$ionicLoading) {
 	return {
 		scope : false,
 		restrict : 'EAC',
@@ -12,6 +12,7 @@ angular.module('wpIonic.directives',[])
 				scope.$apply(function () {
 				//网络获取的html
 				iEle.children().eq(0).html(scope.htmlStr);
+				$ionicLoading.hide();
 				$ionicScrollDelegate.$getByHandle("detailScroll").resize();
 				});
 			},2000);
