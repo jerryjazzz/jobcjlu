@@ -150,7 +150,6 @@ angular.module('wpIonic.controllers', [])
           },500);
         };
         $scope.loadPage = 1;
-        //TODO
         $ionicLoading.show({
               content: 'Loading',
               animation: 'fade-in',
