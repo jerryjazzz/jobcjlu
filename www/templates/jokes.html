@@ -2,14 +2,14 @@
 <ion-content class="jokes scroll-content ionic-scroll">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
-		<ion-item on-hold="starJoke(joke)" class="joke" ng-repeat="joke in jokes" >
+		<ion-item on-hold="showConfirm(joke)" href="#" class="joke" ng-repeat="joke in jokes" >
 			{{joke.content}}
 		</ion-item>
 	</ion-list>
-	<ion-infinite-scroll ng-if="moreDataExists()" on-infinite="loadMore()" immediate-check="false"></ion-infinite-scroll>
+	<ion-infinite-scroll ng-if="moreDataExists()" on-infinite="loadMore()" immediate-check="false"></ion-infinite-scroll><!-- 
 	<div class="starBtn button button-block" ng-show="starBtnShow">
 		<i class="icon ion-ios-star-outline"></i>
 		收藏笑话
-	</div>
+	</div> -->
 </ion-content>
 </ion-view>

@@ -112,23 +112,16 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 **/
 /*解决关于标题不能居中bug
 .title.title-left.header-item { text-align: center; margin-right: 60px;}*/
-
-
+.popup-container .popup { width: 300px;}
+.popup-head { background: #28a54c;}
+.popup-title {font-family: "微软雅黑"; font-size: 16px; color: #fff;}
+.popup-body {font-size: 14px; text-align: center;}
 .jokes .item-content, .jokes .item{
   padding-right: 16px;
   text-overflow: visible;
   white-space: normal;
 }
 
-.jokes {
-  position: relative;
-}
-
-.jokes .starBtn {
-  position: absolute;
-  bottom: 0;
-
-}
 .campus p {margin: 0; padding: 0; }
 .campus .item { padding-top: 10px; padding-bottom: 8px;}
 .campus .job-title {padding: 0; margin: 0; color: #00a89e; font-size: 16px; line-height: 32px; font-weight: bold;}

@@ -9,7 +9,7 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('JokesCtrl',function ( $scope, $http, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
+.controller('JokesCtrl',function ( $scope, $http, $ionicPopup, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
   $scope.morejokes = true;
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
@@ -21,19 +21,37 @@ angular.module('wpIonic.controllers', [])
         if(this[i].content == arr.content){  
         return true;  
         }  
-    }     
+    }
     return false;  
-  } 
+  };
+  $scope.showConfirm = function (joke) {
+    if ($localstorage.getObject('myStars',[]).containsJoke(joke)) {
+      var alertPopup = $ionicPopup.alert({
+       title: '收藏笑话',
+       template: '您之前已经收藏了本笑话！'
+       });
+      alertPopup.then(function(res) {
+       console.log('已收藏');
+      });
+    } else {
+    var confirmPopup = $ionicPopup.confirm({
+      title : '收藏笑话',
+      template : '确定要收藏笑话么，将保存在 我的收藏 中。'
+    });
+    confirmPopup.then(function (res) {
+      if(res) {
+        $scope.starJoke(joke);
+      }
+     });
+    }
+  }
   $scope.starJoke = function (joke) {
-
     // 用于重置缓存
     // $localstorage.setObject('myStars',[]); 
     // $log.log($localstorage.getObject('myStars',[]));
-
-    
     var starJokes = $localstorage.getObject('myStars',[]);
     if(starJokes.length == 0) { starJokes = [joke]; }
-    else if(starJokes.containsJoke(joke)) { $log.log('inArray');}
+    // else if(starJokes.containsJoke(joke)) { $log.log('inArray');}
     else { starJokes.push(joke);}
     $localstorage.setObject('myStars',starJokes);
     $log.log($localstorage.getObject('myStars',[]));
@@ -49,18 +67,22 @@ angular.module('wpIonic.controllers', [])
         $scope.jokes = $scope.jokes.concat(response.data.result.data);
         $log.log($scope.jokes.length);
        }
+
+      $log.log($scope.getApi(), response);
       $timeout(function () {
-        $ionicLoading.hide();
-        $scope.$broadcast('scroll.resize');
-        $log.log($scope.getApi(), response);
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.resize');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
       },500);
     },function(response) {
       $log.log($scope.getApi(), response);
       $scope.morejokes = false;
+
+      $log.log($scope.getApi(), response);
       $timeout(function () {
         $ionicLoading.hide();
         $scope.$broadcast('scroll.resize');
-        $log.log($scope.getApi(), response);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       },500);
     });
       
@@ -69,15 +91,18 @@ angular.module('wpIonic.controllers', [])
           $scope.loadPage = 1;
           DataLoader.get($scope.getApi()).then(function (response) {
           $scope.jokes = response.data.result.data;
-          $log.log($scope.getApi(),response);
           $scope.loadPage++;
-         },function (response) {
-          $log.log($scope.GetApi(),response);
-         });
           $scope.$broadcast('scroll.resize');
           $timeout(function () {
             $scope.$broadcast('scroll.refreshComplete');
           },500);
+         },function (response) {
+          $log.log($scope.GetApi(),response);
+          $scope.$broadcast('scroll.resize');
+          $timeout(function () {
+            $scope.$broadcast('scroll.refreshComplete');
+          },500);
+         });
         };
         $scope.loadPage = 1;
         $ionicLoading.show({
@@ -92,9 +117,6 @@ angular.module('wpIonic.controllers', [])
         $scope.loadMore = function () {
           $scope.loadPage++;
           $scope.loadJokes();
-          $timeout(function() {
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-          }, 1000);
         };
         $scope.moreDataExists = function () {
           return $scope.morejokes;
@@ -105,7 +127,10 @@ angular.module('wpIonic.controllers', [])
   // TODO
   $scope.starJokes = [];
   $scope.doRefresh = function () {
-   $scope.starJokes = $localstorage.getObject('myStars',[]);
+  $scope.starJokes = $localstorage.getObject('myStars',[]);
+  $timeout(function () {
+    $scope.$broadcast('scroll.refreshComplete');
+  },500);
   };
   $scope.doRefresh();
   // $scope.delJoke = function (joke) {
@@ -174,19 +199,16 @@ angular.module('wpIonic.controllers', [])
         $log.log($scope.GetApi(),response);
         $scope.page++;
         $timeout(function() {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast('scroll.refreshComplete');
           $ionicLoading.hide();
          }, 500);
-
       },function (response) {
         $log.log($scope.GetApi(),response);
         $timeout(function() {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast('scroll.refreshComplete');
           $ionicLoading.hide();
          }, 500);
-    });
-
-    
+    })
   };
 
   $scope.getData();
@@ -196,20 +218,24 @@ angular.module('wpIonic.controllers', [])
               showBackdrop: true,
               maxWidth: 200,
               showDelay: 0
-        });
+  });
   $scope.doRefresh = function () {
     $scope.page = 1;
     DataLoader.get($scope.GetApi()).then(function (response) {
       $scope.progressArr = response.data.data.list;
-        $log.log($scope.GetApi(),response);
+      $timeout(function () {
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.resize');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      },500);
         $scope.page++;
     },function (response) {
-        $log.log($scope.GetApi(),response);
+        $timeout(function () {
+          $ionicLoading.hide();
+          $scope.$broadcast('scroll.resize');
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        },500);
     });
-    $scope.$broadcast('scroll.resize');
-    $timeout(function () {
-      $scope.$broadcast('scroll.refreshComplete');
-    },500);
   };
 
   $scope.moreDataExists = function () {
