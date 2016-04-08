@@ -126,6 +126,10 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 .campus .item { padding-top: 10px; padding-bottom: 8px;}
 .campus .job-title {padding: 0; margin: 0; color: #00a89e; font-size: 16px; line-height: 32px; font-weight: bold;}
 .campus .job-time { color: #bbb; line-height: 24px;}
+
+/*访问之后的颜色，ng-class添加*/
+.campus .hasActived { color: #717171;}
+
 .campus .has-tabs { padding-top: 44px;}
 .author .title {font-size: 24px;}
 .author p { font-size: 22px; line-height: 28px; }

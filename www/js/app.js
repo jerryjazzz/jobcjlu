@@ -1,9 +1,4 @@
 // Ionic wpIonic App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'wpIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
 angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'wpIonic.directives','ngCordova', 'angular-cache'])
 
 .run(function($ionicPlatform,$rootScope) {
@@ -47,7 +42,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   $ionicConfigProvider.platform.android.navBar.alignTitle('center');
   $stateProvider
 
-  // sets up our default state, all views are loaded through here
+  // 默认的页面
   .state('app', {
     url: "/app",
     abstract: true,
@@ -65,7 +60,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  // this is the first sub view, notice menuContent under 'views', which is loaded through menu.html
+  // 笑话--开心一刻
   .state('app.jokes', {
     url: "/jokes",
     views: {
@@ -95,15 +90,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  // .state('app.post', {
-  //   url: "/posts/:postId",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/post.html",
-  //       controller: 'PostCtrl'
-  //     }
-  //   }
-  // })
 
   .state('app.custom', {
     url: "/custom",
@@ -145,6 +131,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
         }
       }
     });
-  // if none of the above states are matched, use this as the fallback
+  // 如果没有找到就显示应用简介
   $urlRouterProvider.otherwise('/app/intro');
 });

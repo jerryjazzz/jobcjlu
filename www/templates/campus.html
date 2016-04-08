@@ -6,8 +6,8 @@
 	        <ion-content class="scroll-content ionic-scroll">
 		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	            <ion-list>
-	            		<ion-item ng-click="moreDetail(progress.url)" class="item-icon-right" ng-repeat="progress in progressArr">
-	            			<p class="job-title">{{progress.title}}</p>
+	            		<ion-item ng-click="moreDetail(progress.url,$index)" class="item-icon-right" ng-repeat="progress in progressArr">
+	            			<p class="job-title" ng-class={'hasActived':hasActived[$index]}>{{progress.title}}</p>
 	            			<p>{{progress.location}}</p>
 	            			<p class="job-time">网申时间：{{progress.time}}</p>
 	            			<i class="icon ion-ios-arrow-right"></i>

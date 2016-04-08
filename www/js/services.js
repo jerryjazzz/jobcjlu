@@ -1,7 +1,7 @@
 angular.module('wpIonic.services', [])
 
 /**
- * A simple example service that returns some data.
+ * 一个简单的数据加载services
  */
 .factory('DataLoader', function( $http, $log ) {
 
