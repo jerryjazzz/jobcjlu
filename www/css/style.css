@@ -119,6 +119,16 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   text-overflow: visible;
   white-space: normal;
 }
+
+.jokes {
+  position: relative;
+}
+
+.jokes .starBtn {
+  position: absolute;
+  bottom: 0;
+
+}
 .campus p {margin: 0; padding: 0; }
 .campus .item { padding-top: 10px; padding-bottom: 8px;}
 .campus .job-title {padding: 0; margin: 0; color: #00a89e; font-size: 16px; line-height: 32px; font-weight: bold;}

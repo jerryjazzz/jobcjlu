@@ -4,8 +4,6 @@
 	    <ion-tab title="校园招聘" icon-on="ion-ios-home" icon-off="ion-ios-home-outline">
 -->
 	        <ion-content class="scroll-content ionic-scroll">
-
-		<div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out"></div></div>
 		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	            <ion-list>
 	            		<ion-item ng-click="moreDetail(progress.url)" class="item-icon-right" ng-repeat="progress in progressArr">

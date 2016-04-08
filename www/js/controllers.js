@@ -25,9 +25,12 @@ angular.module('wpIonic.controllers', [])
     return false;  
   } 
   $scope.starJoke = function (joke) {
+
     // 用于重置缓存
     // $localstorage.setObject('myStars',[]); 
+    // $log.log($localstorage.getObject('myStars',[]));
 
+    
     var starJokes = $localstorage.getObject('myStars',[]);
     if(starJokes.length == 0) { starJokes = [joke]; }
     else if(starJokes.containsJoke(joke)) { $log.log('inArray');}
