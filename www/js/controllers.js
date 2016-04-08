@@ -9,101 +9,28 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('PostCtrl', function($scope, $stateParams, DataLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
-
-  // if ( ! CacheFactory.get('postCache') ) {
-  //   CacheFactory.createCache('postCache');
-  // }
-
-  // var postCache = CacheFactory.get( 'postCache' );
-
-  // $scope.itemID = $stateParams.postId;
-
-  // var singlePostApi = $rootScope.url + 'posts/' + $scope.itemID;
-
-  // $scope.loadPost = function() {
-
-  //   // Fetch remote post
-
-  //   $ionicLoading.show({
-  //     noBackdrop: true
-  //   });
-
-  //   DataLoader.get( singlePostApi ).then(function(response) {
-
-  //     $scope.post = response.data;
-
-  //     $log.debug($scope.post);
-
-  //     // Don't strip post html
-  //     $scope.content = $sce.trustAsHtml(response.data.content.rendered);
-
-  //     // $scope.comments = $scope.post._embedded['replies'][0];
-
-  //     // add post to our cache
-  //     postCache.put( response.data.id, response.data );
-
-  //     $ionicLoading.hide();
-  //   }, function(response) {
-  //     $log.error('error', response);
-  //     $ionicLoading.hide();
-  //   });
-
-  // }
-
-  // if( !postCache.get( $scope.itemID ) ) {
-
-  //   // Item is not in cache, go get it
-  //   $scope.loadPost();
-
-  // } else {
-  //   // Item exists, use cached item
-  //   $scope.post = postCache.get( $scope.itemID );
-  //   $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
-  //   // $scope.comments = $scope.post._embedded['replies'][0];
-  // }
-
-  // // Bookmarking
-  // $scope.bookmarked = Bookmark.check( $scope.itemID );
-
-  // $scope.bookmarkItem = function( id ) {
-    
-  //   if( $scope.bookmarked ) {
-  //     Bookmark.remove( id );
-  //     $scope.bookmarked = false;
-  //   } else {
-  //     Bookmark.set( id );
-  //     $scope.bookmarked = true;
-  //   }
-  // }
-
-  // // Pull to refresh
-  // $scope.doRefresh = function() {
-  
-  //   $timeout( function() {
-
-  //     $scope.loadPost();
-
-  //     //Stop the ion-refresher from spinning
-  //     $scope.$broadcast('scroll.refreshComplete');
-    
-  //   }, 1000);
-      
-  // };
-
-})
 .controller('JokesCtrl',function ( $scope, $http, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
   $scope.morejokes = true;
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
 
+  Array.prototype.containsJoke = function (arr){    
+    for(var i=0;i<this.length;i++){
+    //this指向真正调用这个方法的对象  
+        if(this[i].content == arr.content){  
+        return true;  
+        }  
+    }     
+    return false;  
+  } 
   $scope.starJoke = function (joke) {
     // 用于重置缓存
     // $localstorage.setObject('myStars',[]); 
 
     var starJokes = $localstorage.getObject('myStars',[]);
-    if(starJokes.length == 0) { starJokes = [joke] }
+    if(starJokes.length == 0) { starJokes = [joke]; }
+    else if(starJokes.containsJoke(joke)) { $log.log('inArray');}
     else { starJokes.push(joke);}
     $localstorage.setObject('myStars',starJokes);
     $log.log($localstorage.getObject('myStars',[]));
@@ -171,97 +98,13 @@ angular.module('wpIonic.controllers', [])
         };
 
 })
-/*
-.controller('PostsCtrl', function( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
-
-  var postsApi = $rootScope.url + 'posts';
-
-  $scope.moreItems = false;
-
-  $scope.loadPosts = function() {
-
-    // Get all of our posts
-    DataLoader.get( postsApi ).then(function(response) {
-
-      $scope.posts = response.data;
-
-      $scope.moreItems = true;
-
-      $log.log(postsApi, response.data);
-
-    }, function(response) {
-      $log.log(postsApi, response.data);
-    });
-
-  }
-
-  // Load posts on page load
-  $scope.loadPosts();
-
-  paged = 2;
-
-  // Load more (infinite scroll)
-  $scope.loadMore = function() {
-
-    if( !$scope.moreItems ) {
-      return;
-    }
-
-    var pg = paged++;
-
-    $log.log('loadMore ' + pg );
-
-    $timeout(function() {
-
-      DataLoader.get( postsApi + '?page=' + pg ).then(function(response) {
-
-        angular.forEach( response.data, function( value, key ) {
-          $scope.posts.push(value);
-        });
-
-        if( response.data.length <= 0 ) {
-          $scope.moreItems = false;
-        }
-      }, function(response) {
-        $scope.moreItems = false;
-        $log.error(response);
-      });
-
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      $scope.$broadcast('scroll.resize');
-
-    }, 1000);
-
-  }
-
-  $scope.moreDataExists = function() {
-    return $scope.moreItems;
-  }
-
-  // Pull to refresh
-  $scope.doRefresh = function() {
-  
-    $timeout( function() {
-
-      $scope.loadPosts();
-
-      //Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    
-    }, 1000);
-      
-  };
-    
-})
-*/
-
 .controller('myStarCtrl', function( $scope, $timeout,$localstorage ,$log, CacheFactory ) {
   // TODO
-  // $scope.starJokes = [];
-  // $scope.doRefresh = function () {
-  //  $scope.starJokes = $localstorage.getObject('myStars',[]);
-  // };
-  // $scope.doRefresh();
+  $scope.starJokes = [];
+  $scope.doRefresh = function () {
+   $scope.starJokes = $localstorage.getObject('myStars',[]);
+  };
+  $scope.doRefresh();
   // $scope.delJoke = function (joke) {
   //   $scope.starJokes.remove(joke);
   //   $localstorage.setObject('myStars',$scope.starJokes);
