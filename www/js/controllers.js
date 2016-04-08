@@ -25,7 +25,12 @@ angular.module('wpIonic.controllers', [])
     return false;  
   };
   $scope.showConfirm = function (joke) {
-    if ($localstorage.getObject('myStars',[]).containsJoke(joke)) {
+    // 用于重置缓存
+    // $localstorage.setObject('myStars',[]); 
+    // $log.log($localstorage.getObject('myStars',[]));
+
+    //解决内存为空时的bug
+    if ($localstorage.getObject('myStars',[]).length != 0 && $localstorage.getObject('myStars',[]).containsJoke(joke)) {
       var alertPopup = $ionicPopup.alert({
        title: '收藏笑话',
        template: '您之前已经收藏了本笑话！'
@@ -46,9 +51,6 @@ angular.module('wpIonic.controllers', [])
     }
   }
   $scope.starJoke = function (joke) {
-    // 用于重置缓存
-    // $localstorage.setObject('myStars',[]); 
-    // $log.log($localstorage.getObject('myStars',[]));
     var starJokes = $localstorage.getObject('myStars',[]);
     if(starJokes.length == 0) { starJokes = [joke]; }
     // else if(starJokes.containsJoke(joke)) { $log.log('inArray');}
@@ -141,7 +143,7 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('IntroCtrl', function($scope, $state, $localstorage,$ionicSlideBoxDelegate, $ionicHistory,$log) {
+.controller('IntroCtrl', function ( $scope, $state, $localstorage,$ionicSlideBoxDelegate, $ionicHistory,$log) {
 
   // $ionicSlideBoxDelegate.update();
   
@@ -154,7 +156,7 @@ angular.module('wpIonic.controllers', [])
     $localstorage.set('hasStartApp',hasStartApp);
     $state.go('app.jokes');
   };
-  if ($localstorage.get('hasStartApp',false)) { $state.go('app.jokes'); }
+  if ($localstorage.get('hasStartApp',false) == 'true') { $state.go('app.jokes'); }
 
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -282,4 +284,25 @@ angular.module('wpIonic.controllers', [])
   $scope.openGithubApp = function () {
     window.open('https://github.com/SuuQi/jobcjlu','_system');
   };
+})
+.controller('settingsCtrl', function ($scope,$ionicPopup,$localstorage,$log) {
+  $scope.clearLocal = function () {
+    var confirmPopup = $ionicPopup.confirm({
+      title : '清空缓存数据',
+      template : '确定要清空缓存数据么？'
+    });
+    confirmPopup.then(function (res) {
+      if(res) {
+         // 用于重置缓存
+        $localstorage.setObject('myStars',[]); 
+        $localstorage.set('hasStartApp',false); 
+        $log.log($localstorage.getObject('myStars',[]));
+        // 手动置0，否则有0.04
+        $scope.localSave = 0;
+      }
+     });
+  }
+
+  //获取本地储存的localStorage缓存
+  $scope.localSave = parseInt((unescape(encodeURIComponent(JSON.stringify(localStorage))).length / 1024.0   *   100 + 0.5))/100;
 });

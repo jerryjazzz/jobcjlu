@@ -2,7 +2,7 @@
   <ion-content>
 
   <ul class="list">
-
+	  
 	  <li class="item item-toggle">
 	     设置 1
 	     <label class="toggle toggle-assertive">
@@ -22,10 +22,19 @@
 	       </div>
 	     </label>
 	  </li>
-
 	  <div class="item item-divider">
-          通知
-        </div>
+          		数据
+        	</div>
+	<li class="item item-icon-left" href="#" ng-click="clearLocal()">
+	  	<i class="icon ion-ios-trash-outline"></i>
+	  	清空缓存数据
+	  	<span class="item-note">
+	  		{{localSave + ' K'}}
+	  	</span>
+	  </li>
+	 <div class="item item-divider">
+          		通知
+        	</div>
 
         <li class="item item-checkbox">
 	     <label class="checkbox">

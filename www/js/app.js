@@ -140,7 +140,8 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       url: "/settings",
       views: {
         'menuContent': {
-          templateUrl: "templates/settings.html"
+          templateUrl: "templates/settings.html",
+          controller: 'settingsCtrl'
         }
       }
     });
