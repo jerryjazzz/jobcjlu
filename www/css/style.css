@@ -112,7 +112,7 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 **/
 /*解决关于标题不能居中bug
 .title.title-left.header-item { text-align: center; margin-right: 60px;}*/
-.popup-container .popup { width: 300px;}
+.popup-container .popup { width: 300px; }
 .popup-head { background: #28a54c;}
 .popup-title {font-family: "微软雅黑"; font-size: 16px; color: #fff;}
 .popup-body {font-size: 14px; text-align: center;}
@@ -120,6 +120,7 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   padding-right: 16px;
   text-overflow: visible;
   white-space: normal;
+  overflow: visible;
 }
 
 .campus p {margin: 0; padding: 0; }
