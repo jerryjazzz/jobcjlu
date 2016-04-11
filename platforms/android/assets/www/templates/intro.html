@@ -1,0 +1,24 @@
+<ion-view view-title="应用简介">
+  <ion-slide-box on-slide-changed="slideChanged(index)">
+    <ion-slide>
+      <div class="slide-content">
+        <h3>本应用是建立在ionic、angularJs框架之下的webApp，旨在给计量学子带来欢乐与便利。</h3>
+        <button class="button button-block button-balanced" ng-click="next()">Next</button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide-content">
+        <h3>在计量麻花中，你可以获得的是免费的笑话，免费的校招职位信息，免费的欢乐与免费的便利。</h3>
+        <button class="button button-block button-balanced" ng-click="next()">Next</button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide-content">
+        <h3>计量麻花，let‘s go start!</h3>
+        <button class="button button-block button-balanced" ng-click="startApp()">
+          Get Started
+        </button>
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
