@@ -40,7 +40,7 @@ angular.module('wpIonic.controllers', [])
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
 
-  /*暂时滑动冲突 待解决*/
+  /*暂时解决滑动手势冲突 待解决*/
   $scope.toggle = function () {
     $ionicSideMenuDelegate.toggleLeft();
   };
@@ -101,8 +101,8 @@ angular.module('wpIonic.controllers', [])
       $log.log($scope.getApi(), response);
       $timeout(function () {
       $ionicLoading.hide();
-      $scope.$broadcast('scroll.resize');
       $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.$broadcast('scroll.resize');
       },500);
     },function(response) {
       $log.log($scope.getApi(), response);
@@ -112,7 +112,6 @@ angular.module('wpIonic.controllers', [])
       $timeout(function () {
         $ionicLoading.hide();
         $scope.$broadcast('scroll.resize');
-        $scope.$broadcast('scroll.infiniteScrollComplete');
       },500);
     });
       
@@ -155,7 +154,7 @@ angular.module('wpIonic.controllers', [])
         };
 
 })
-.controller('myStarCtrl', function( $scope, $timeout,$localstorage ,$log, CacheFactory ) {
+.controller('myStarCtrl', function( $scope,$ionicSideMenuDelegate, $timeout,$localstorage ,$log, CacheFactory ) {
   // TODO
   $scope.starJokes = [];
   $scope.doRefresh = function () {
@@ -169,7 +168,10 @@ angular.module('wpIonic.controllers', [])
   //   $scope.starJokes.remove(joke);
   //   $localstorage.setObject('myStars',$scope.starJokes);
   // };
-
+  /*暂时解决滑动手势冲突 待解决*/
+  $scope.toggle = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
 
 })
 
@@ -180,7 +182,7 @@ angular.module('wpIonic.controllers', [])
 
 .controller('campusCtrl', function ($scope,$state,$ionicLoading,DataLoader,$ionicSideMenuDelegate,$timeout,$log,$ionicSlideBoxDelegate) {
 
-  /*暂时滑动冲突 待解决*/
+  /*暂时解决滑动手势冲突 待解决*/
   $scope.toggle = function () {
     $ionicSideMenuDelegate.toggleLeft();
   };
@@ -202,12 +204,16 @@ angular.module('wpIonic.controllers', [])
         $scope.page++;
         $timeout(function() {
           $scope.$broadcast('scroll.refreshComplete');
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast('scroll.resize');
           $ionicLoading.hide();
          }, 500);
       },function (response) {
         $log.log($scope.GetApi(),response);
         $timeout(function() {
           $scope.$broadcast('scroll.refreshComplete');
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast('scroll.resize');
           $ionicLoading.hide();
          }, 500);
     })
@@ -227,15 +233,17 @@ angular.module('wpIonic.controllers', [])
       $scope.progressArr = response.data.data.list;
       $timeout(function () {
         $ionicLoading.hide();
-        $scope.$broadcast('scroll.resize');
+        $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.resize');
       },500);
         $scope.page++;
     },function (response) {
         $timeout(function () {
           $ionicLoading.hide();
-          $scope.$broadcast('scroll.resize');
+          $scope.$broadcast('scroll.refreshComplete');
           $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast('scroll.resize');
         },500);
     });
   };

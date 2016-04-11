@@ -9,6 +9,7 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 	font-size: 18px !important;
 }
 **/
+
 .slider {
   height: 100%;
 }
@@ -123,7 +124,7 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
   overflow: visible;
 }
 .jokes, .campus {
-  margin-top: 44px;
+  /*margin-top: 44px;*/
   height: 100%;
   width: 100%;
 }

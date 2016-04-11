@@ -1,9 +1,9 @@
-<ion-view class="campus-wrap" title="校园招聘">
+<ion-view class="campus-wrap" title="校园招聘" style="padding-top:44px;">
 <!--
 	<ion-tabs tabs-type="tabs-icon-only">
 	    <ion-tab title="校园招聘" icon-on="ion-ios-home" icon-off="ion-ios-home-outline">
 -->
-	        <ion-scroll class="campus" on-drag-right="toggle()">
+	        <ion-scroll class="campus" on-swipe-right="toggle()">
 		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	            <ion-list>
 	            		<ion-item ng-click="moreDetail(progress.url,$index)" class="item-icon-right" ng-repeat="progress in progressArr">

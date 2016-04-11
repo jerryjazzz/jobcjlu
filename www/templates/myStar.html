@@ -1,5 +1,5 @@
-<ion-view view-title="我的收藏">
-  <ion-scroll class="jokes">
+<ion-view view-title="我的收藏" style="padding-top:44px;">
+  <ion-scroll class="jokes"  on-swipe-right="toggle()">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
 		<ion-item on-hold="delJoke(starJoke)" href="#" class="joke" ng-repeat="starJoke in starJokes">
