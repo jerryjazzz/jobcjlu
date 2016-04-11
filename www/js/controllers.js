@@ -34,13 +34,16 @@ angular.module('wpIonic.controllers', [])
   };
 
 })
-.controller('JokesCtrl',function ( $scope, $http, $ionicPopup, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
+.controller('JokesCtrl',function ( $scope, $http, $ionicPopup, $ionicLoading,$localstorage,DataLoader, $timeout, $ionicSlideBoxDelegate,$ionicSideMenuDelegate, $rootScope, $log ) {
   $scope.morejokes = true;
   $scope.getApi = function () {
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
 
-  
+  /*暂时滑动冲突 待解决*/
+  $scope.toggle = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
   Array.prototype.containsJoke = function (arr){    
     for(var i=0;i<this.length;i++){
     //this指向真正调用这个方法的对象  
@@ -84,7 +87,6 @@ angular.module('wpIonic.controllers', [])
     $localstorage.setObject('myStars',starJokes);
     $log.log($localstorage.getObject('myStars',[]));
   };
-
   $scope.loadJokes = function () {
       if (!$scope.morejokes) {return;};
       DataLoader.get( $scope.getApi() ).then(function(response) {
@@ -123,12 +125,14 @@ angular.module('wpIonic.controllers', [])
           $scope.$broadcast('scroll.resize');
           $timeout(function () {
             $scope.$broadcast('scroll.refreshComplete');
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           },500);
          },function (response) {
           $log.log($scope.GetApi(),response);
           $scope.$broadcast('scroll.resize');
           $timeout(function () {
             $scope.$broadcast('scroll.refreshComplete');
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           },500);
          });
         };
@@ -174,7 +178,12 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('campusCtrl', function ($scope,$state,$ionicLoading,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
+.controller('campusCtrl', function ($scope,$state,$ionicLoading,DataLoader,$ionicSideMenuDelegate,$timeout,$log,$ionicSlideBoxDelegate) {
+
+  /*暂时滑动冲突 待解决*/
+  $scope.toggle = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
   $scope.page = 1;
   $scope.moreItems = false;
   $scope.GetApi = function () {
