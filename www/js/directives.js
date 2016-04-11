@@ -5,7 +5,7 @@ angular.module('wpIonic.directives',[])
 		scope : false,
 		restrict : 'EAC',
 		//让内容可以滚动起来
-		template : '<ion-content delegate-handle="detailScroll"  class="wrap"><div class="scroll"></div></ion-content>',
+		template : '<ion-content delegate-handle="detailScroll"  class="detail-wrap"><div class="scroll"></div></ion-content>',
 		replace : true,
 		link : function (scope,iEle,iAttrs) {
 			$timeout(function () {

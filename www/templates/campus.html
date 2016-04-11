@@ -1,9 +1,9 @@
-<ion-view class="campus" title="校园招聘">
+<ion-view class="campus-wrap" title="校园招聘">
 <!--
 	<ion-tabs tabs-type="tabs-icon-only">
 	    <ion-tab title="校园招聘" icon-on="ion-ios-home" icon-off="ion-ios-home-outline">
 -->
-	        <ion-content class="scroll-content ionic-scroll">
+	        <ion-scroll class="campus">
 		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	            <ion-list>
 	            		<ion-item ng-click="moreDetail(progress.url,$index)" class="item-icon-right" ng-repeat="progress in progressArr">
@@ -14,7 +14,7 @@
 	            		</ion-item>
 	            </ion-list>
 	            <ion-infinite-scroll ng-if="moreDataExists()" on-infinite="loadMore()" immediate-check="false"></ion-infinite-scroll>
-	        </ion-content>
+	        </ion-scroll>
 <!--	    </ion-tab>
 
 	    <ion-tab title="Camera" icon-on="ion-ios-camera" icon-off="ion-ios-camera-outline">

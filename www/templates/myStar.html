@@ -1,10 +1,10 @@
 <ion-view view-title="我的收藏">
-  <ion-content class="jokes scroll-content ionic-scroll">
+  <ion-scroll class="jokes">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
 		<ion-item on-hold="delJoke(starJoke)" href="#" class="joke" ng-repeat="starJoke in starJokes">
 			{{starJoke.content}}
 		</ion-item>
 	</ion-list>
-</ion-content>
+</ion-scroll>
 </ion-view>

@@ -40,6 +40,7 @@ angular.module('wpIonic.controllers', [])
     return $rootScope.url + 'content/text.from?key='+$rootScope.key+'&page='+$scope.loadPage+'&pagesize=20';
   };
 
+  
   Array.prototype.containsJoke = function (arr){    
     for(var i=0;i<this.length;i++){
     //this指向真正调用这个方法的对象  

@@ -1,5 +1,5 @@
 <ion-view view-title="开心一刻">
-<ion-content class="jokes scroll-content ionic-scroll">
+<ion-scroll class="jokes">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
 		<ion-item on-hold="showConfirm(joke)" href="#" class="joke" ng-repeat="joke in jokes" >
@@ -11,5 +11,5 @@
 		<i class="icon ion-ios-star-outline"></i>
 		收藏笑话
 	</div> -->
-</ion-content>
+</ion-scroll>
 </ion-view>
