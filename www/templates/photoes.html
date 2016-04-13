@@ -1,0 +1,16 @@
+<ion-view view-title="趣图笑话" style="padding-top:44px;">
+<ion-scroll direction="y" on-swipe-right="toggle()" class="photoes">
+	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+	<ion-list>
+		<ion-item on-hold="showConfirm(photo)" href="#" class="photo" ng-repeat="photo in photoes" >
+			<p class="photoDes">{{photo.content}}<p>
+			<img ng-click="watchImg(photo)" ng-src={{photo.url}} class="PhotoImg" />
+		</ion-item>
+	</ion-list>
+	<ion-infinite-scroll ng-if="moreDataExists()" on-infinite="loadMore()" immediate-check="false"></ion-infinite-scroll><!-- 
+	<div class="starBtn button button-block" ng-show="starBtnShow">
+		<i class="icon ion-ios-star-outline"></i>
+		收藏笑话
+	</div> -->
+</ion-scroll>
+</ion-view>

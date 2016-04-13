@@ -175,6 +175,61 @@ angular.module('wpIonic.controllers', [])
 
 })
 
+//趣图笑话
+.controller('PhotoesCtrl',function ($scope,$rootScope,$ionicLoading,$ionicSideMenuDelegate,DataLoader, $timeout,$localstorage ,$log) {
+
+  /*暂时解决滑动手势冲突 待解决*/
+  $scope.toggle = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  $scope.watchImg = function (photo) {
+    $log.log('watchImg');
+  };
+  $scope.page = 1;
+  $scope.gteUrl = function () {
+    return $rootScope.url + 'img/text.from?key=' + $rootScope.key + '&pagesize=10&page=' + $scope.page; 
+    
+  };
+  $scope.loadPhotoes = function () {
+    $scope.moreData = false;
+    DataLoader.get( $scope.gteUrl() ).then(function (response) {
+      $scope.photoes = response.data.result.data;
+      $scope.page++;
+      $timeout(function () {
+        $scope.$broadcast('scroll.resize');
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.moreData = true;
+        $ionicLoading.hide();
+      },500);
+    },function (response) {
+      $log.log(response);
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $ionicLoading.hide();
+    });
+  };
+  $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+  });
+  $scope.loadPhotoes();
+  $scope.doRefresh = function () {
+    $scope.page = 1;
+    $scope.loadPhotoes();
+  };
+  $scope.loadMore = function () {
+    $scope.loadPhotoes();
+  };
+  $scope.moreDataExists = function () {
+    return $scope.moreData;
+  }
+})
+
+
 //宣讲会controller
 .controller('talkCtrl',function ($scope,DataLoader,$timeout,$log,$ionicSlideBoxDelegate) {
 
@@ -193,10 +248,11 @@ angular.module('wpIonic.controllers', [])
   };
   $scope.getData = function () { 
     DataLoader.get($scope.GetApi()).then(function (response) {
+        var data = response.data.data;
         if ($scope.progressArr == null) {
-          $scope.progressArr = response.data.data.list;
+          $scope.progressArr = data.list;
         } else {
-          $scope.progressArr = $scope.progressArr.concat(response.data.data.list);
+          $scope.progressArr = $scope.progressArr.concat(data.list);
         }
         $scope.$broadcast('scroll.resize');
         $scope.moreItems = true;
