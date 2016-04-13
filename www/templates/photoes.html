@@ -3,7 +3,7 @@
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
 	<ion-list>
 		<ion-item on-hold="showConfirm(photo)" href="#" class="photo" ng-repeat="photo in photoes" >
-			<p class="photoDes">{{photo.content}}<p>
+			<p class="photoDes">{{photo.content}}</p>
 			<img ng-click="watchImg(photo)" ng-src={{photo.url}} class="PhotoImg" />
 		</ion-item>
 	</ion-list>

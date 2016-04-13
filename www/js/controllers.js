@@ -107,8 +107,6 @@ angular.module('wpIonic.controllers', [])
     },function(response) {
       $log.log($scope.getApi(), response);
       $scope.morejokes = false;
-
-      $log.log($scope.getApi(), response);
       $timeout(function () {
         $ionicLoading.hide();
         $scope.$broadcast('scroll.resize');
@@ -190,8 +188,9 @@ angular.module('wpIonic.controllers', [])
     return $rootScope.url + 'img/text.from?key=' + $rootScope.key + '&pagesize=10&page=' + $scope.page; 
     
   };
+  $scope.moreData = true;
   $scope.loadPhotoes = function () {
-    $scope.moreData = false;
+    if (!$scope.moreData) {return;};
     DataLoader.get( $scope.gteUrl() ).then(function (response) {
       $scope.photoes = response.data.result.data;
       $scope.page++;
@@ -199,7 +198,6 @@ angular.module('wpIonic.controllers', [])
         $scope.$broadcast('scroll.resize');
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.moreData = true;
         $ionicLoading.hide();
       },500);
     },function (response) {
@@ -207,6 +205,7 @@ angular.module('wpIonic.controllers', [])
       $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
       $ionicLoading.hide();
+      $scope.moreData = false;
     });
   };
   $ionicLoading.show({
@@ -221,8 +220,21 @@ angular.module('wpIonic.controllers', [])
     $scope.page = 1;
     $scope.loadPhotoes();
   };
-  $scope.loadMore = function () {
-    $scope.loadPhotoes();
+  $scope.loadMore = function () {    
+    DataLoader.get( $scope.gteUrl() ).then(function (response) {
+      $log.log(response);
+      $scope.photoes = $scope.photoes.concat(response.data.result.data);
+      $scope.page++;
+      $timeout(function () {
+        $scope.$broadcast('scroll.resize');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      },500);
+    },function (response) {
+      $log.log(response);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $ionicLoading.hide();
+      $scope.moreData = false;
+    });
   };
   $scope.moreDataExists = function () {
     return $scope.moreData;

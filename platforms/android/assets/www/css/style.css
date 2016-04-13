@@ -117,16 +117,26 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 .popup-head { background: #28a54c;}
 .popup-title {font-family: "微软雅黑"; font-size: 16px; color: #fff;}
 .popup-body {font-size: 14px; text-align: center;}
-.jokes .item-content, .jokes .item{
+.jokes .item-content, .jokes .item ,.photoes .photoDes{
   padding-right: 16px;
   text-overflow: visible;
   white-space: normal;
   overflow: visible;
 }
-.jokes, .campus {
+.jokes .joke { padding-right: 3px;}
+.jokes, .campus, .photoes {
   /*margin-top: 44px;*/
   height: 100%;
   width: 100%;
+}
+
+.photo .item-content { padding: 16px;}
+.photoes .photoDes {
+  margin-bottom: 5px;
+}
+.photo .PhotoImg {
+  max-width: 100%;
+  border-radius: 3px;
 }
 
 .campus-wrap p {margin: 0; padding: 0; }
@@ -136,6 +146,7 @@ body {font: 12px/1.5 'Microsoft Yahei',Arial,Helvetica,sans-serif;}
 
 /*访问之后的颜色，用ng-class添加*/
 .campus-wrap .hasActived { color: #666;}
+
 .author .title {font-size: 24px;}
 .author p { font-size: 22px; line-height: 28px; }
 .author a { font-size: 22px; text-decoration: none;}

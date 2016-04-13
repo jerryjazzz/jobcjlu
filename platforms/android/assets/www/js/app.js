@@ -71,6 +71,17 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
+  // 笑话--趣图笑话
+  .state('app.photoes', {
+    url: "/photoes",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/photoes.html",
+        controller: 'PhotoesCtrl'
+      }
+    }
+  })
+
   .state('app.talk', {
     url: "/talk",
     views: {
